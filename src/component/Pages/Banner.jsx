@@ -1,12 +1,11 @@
-
 import { useState, useRef, useEffect } from "react";
-import { Search, Globe, Zap, ArrowRight } from "lucide-react";
-import DecryptedText from "../Home/DecryptedText"; // Direct import
+import { Search, Globe, Zap } from "lucide-react";
+import DecryptedText from "../Home/DecryptedText";
 import { GoChevronRight, GoGitCompare, GoRocket, GoStar, GoGear } from "react-icons/go";
-import video1 from "../../video/video1.mp4"; // Direct file import
-import img from "../../image/Vector.png"; // Direct file import
+import video1 from "../../video/video1.mp4";
+import img from "../../image/Vector.png";
 
-const Banner = () => {
+const Banner = ({ onToggleSections, showSections }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -31,7 +30,6 @@ const Banner = () => {
   const handleSuggestionClick = (suggestion) => {
     setSearchQuery(suggestion);
     setIsFocused(false);
-    // Trigger search programmatically
     const syntheticEvent = new Event("submit", { bubbles: true });
     searchBarRef.current.dispatchEvent(syntheticEvent);
   };
@@ -41,7 +39,6 @@ const Banner = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // Close GoGitCompare dropdown on any outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -124,7 +121,7 @@ const Banner = () => {
         {/* Search Bar */}
         <div className="mb-8 w-full max-w-2xl mx-auto flex items-center gap-4 relative">
           <form ref={searchBarRef} onSubmit={handleSearch} className="relative flex-1">
-            <div className="relative flex items-center  ">
+            <div className="relative flex items-center">
               <div className="flex items-center pl-6 pr-4">
                 <Globe className="w-5 h-5 text-blue-400 mr-3" />
                 <span className="text-white/80 text-sm font-medium">ASK EARTH</span>
@@ -137,12 +134,12 @@ const Banner = () => {
                   onFocus={() => setIsFocused(true)}
                   onBlur={() => setTimeout(() => setIsFocused(false), 100)}
                   placeholder="Want to know about Earth?"
-                  className="w-full  text-white placeholder-white/60 px-3 py-3 focus:outline-none text-lg border-b  border-white/20 focus:border-b focus:border-white/40 "
+                  className="w-full text-white placeholder-white/60 px-3 py-3 focus:outline-none text-lg border-b border-white/20 focus:border-b focus:border-white/40"
                 />
               </div>
               <button
                 type="submit"
-                className=" flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-4   cursor-pointer "
+                className="flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-4 cursor-pointer"
               >
                 <Search className="w-6 h-6 text-blue-400 hover:text-blue-300 transition-colors duration-300" />
               </button>
@@ -152,7 +149,7 @@ const Banner = () => {
                 {suggestions.map((suggestion, index) => (
                   <div
                     key={index}
-                    className="px-4 py-2 text-white/60 hover:text-white  cursor-pointer transition-all duration-200"
+                    className="px-4 py-2 text-white/60 hover:text-white cursor-pointer transition-all duration-200"
                     onMouseDown={() => handleSuggestionClick(suggestion)}
                   >
                     {suggestion}
@@ -164,9 +161,9 @@ const Banner = () => {
 
           {/* GoGitCompare Icon with Dropdown */}
           <div className="relative group" ref={dropdownRef}>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full  transition-all duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full transition-all duration-300"></div>
             <div
-              className="relative flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-4  transition-all duration-300 cursor-pointer"
+              className="relative flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-4 transition-all duration-300 cursor-pointer"
               onClick={toggleDropdown}
             >
               <GoGitCompare className="w-6 h-6 text-blue-400 hover:text-blue-300 transition-colors duration-300" />
@@ -199,7 +196,7 @@ const Banner = () => {
         <div className="mb-8">
           <div className="inline-flex items-center gap-3 text-white/80 text-lg">
             <span>Explore EarthPro for more advanced features</span>
-            <button className="bg-blue-500/40 hover:bg-blue-500/60 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-300 flex items-center gap-2 font-bold">
+            <button className="bg-blue-500/40 hover:bg-blue-500/60 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-300 flex items-centergap-2 font-bold">
               <img src={img} alt="Upgrade icon" />
               Upgrade now
             </button>
@@ -208,9 +205,16 @@ const Banner = () => {
 
         {/* Learn More Button */}
         <div className="mb-16">
-          <button className="group border border-white/30 hover:border-blue-400 bg-white/5 hover:bg-blue-500/20 text-white px-6 py-3 rounded-lg cursor-pointer transition-all duration-300 flex items-center gap-2 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30">
+          <button
+            onClick={onToggleSections}
+            className="group border border-white/30 hover:border-blue-400 bg-white/5 hover:bg-blue-500/20 text-white px-6 py-3 rounded-lg cursor-pointer transition-all duration-300 flex items-center gap-2 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/30"
+          >
             Learn more
-            <GoChevronRight className="w-4 h-4 group-hover:translate-x-1 group-hover:rotate-90 transition-transform duration-300" />
+            <GoChevronRight
+              className={`w-4 h-4 ${
+                showSections ? "rotate-90" : "rotate-0"
+              } transition-transform duration-300`}
+            />
           </button>
         </div>
       </div>
