@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import img from "../../image/group.png"
+import { Link } from "react-router-dom"
 function Navbar() {
   const [activeRoute, setActiveRoute] = useState("/")
 
@@ -11,10 +12,8 @@ function Navbar() {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Contact", path: "/contact" },
+    { name: "Industry insights", path: "/search-result" },
+    
   ]
 
   const handleNavClick = (path) => {
@@ -37,9 +36,11 @@ function Navbar() {
           <div className="hidden md:block">
             <div className="flex justify-center items-baseline space-x-1 relative">
               {navItems.map((item) => (
+                <Link to={item?.path}>
                 <button
                   key={item.path}
                   onClick={() => handleNavClick(item.path)}
+                  
                   className={`
                     relative px-4 py-2 rounded-lg text-[18px] font-bold transition-all duration-300 ease-in-out cursor-pointer
                     ${activeRoute === item.path ? "text-[#4880FF]" : "text-white hover:text-[#4880FF]"}
@@ -52,6 +53,7 @@ function Navbar() {
                 >
                   {item.name}
                 </button>
+                </Link>
               ))}
             </div>
           </div>

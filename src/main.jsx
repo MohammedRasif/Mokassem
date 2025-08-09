@@ -1,48 +1,48 @@
-import React, { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Roots from './Root/Roots.jsx';
-import ErrorPage from './component/ErrorPage/ErrorPage.jsx';
-import Home from './component/Home/Home.jsx';
-import UserDashboardLayout from './component/UserDashboard/UserDashboardLayout/UserDashboardLayout.jsx';
-import Dashboard from './component/UserDashboard/UserDashboardPages/Dashboard.jsx';
-
+import React, { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Roots from "./Root/Roots.jsx";
+import ErrorPage from "./component/ErrorPage/ErrorPage.jsx";
+import Home from "./component/Home/Home.jsx";
+import Inpormation from "./component/Pages/Inpormation.jsx";
+import SearchResult from "./component/Pages/searchResult/SearchResult.jsx";
+// import ChatWindow from './component/Pages/ChatWindow.jsx'; // Assuming ChatWindow is in this path
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element:<Roots/> ,
-    errorElement:<ErrorPage/>,
+    element: <Roots />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element:<Home/> ,
+        element: <Home />,
       },
-     
+      {
+        path: "/information",
+        element: <Inpormation />,
+        children: [
+          {
+            path: ":userId",
+            // element: <ChatWindow />,
+          },
+          {
+            path: "chatbot",
+            element: <div>Chatbot Interface</div>, // Placeholder for chatbot
+          },
+        ],
+      },
     ],
   },
-
-
   {
-    path:"/dashboard",
-    element:<UserDashboardLayout/>,
-    children:[
-      {
-        index:true,
-        element:<Dashboard/>,
-      }
-    ]
-  }
+    path: "/search-result",
+    element: <SearchResult />,
+  },
 ]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
-  </StrictMode>,
-)
+  </StrictMode>
+);

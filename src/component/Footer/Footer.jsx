@@ -68,7 +68,7 @@ function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 ">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-16 ">
             <div>
               <h4 className="font-bold text-[24px] text-white mb-4">Company</h4>
               <ul className="space-y-2 text-gray-400">
@@ -89,7 +89,7 @@ function Footer() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> 
             <div>
               <h4 className="font-bold text-[24px] text-white mb-4">Legal</h4>
               <ul className="space-y-2 text-gray-400">

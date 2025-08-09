@@ -86,15 +86,15 @@ const useCaseCards = [
 
 function Work() {
   return (
-    <div className="bg-black text-white relative">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={backgroundimg}
-          alt="Dark space background with a planet"
-          className="w-full h-full object-cover opacity-50"
-        />
-      </div>
+   <div className="bg-black text-white relative">
+  {/* Background Image */}
+  <div className="absolute inset-0 z-0">
+    <img
+      src={backgroundimg}
+      alt="Dark space background with a planet"
+      className="w-full h-full object-cover opacity-50 "
+    />
+  </div>
 
       {/* How it work section */}
       <section className="relative z-10 py-16 md:py-32">
