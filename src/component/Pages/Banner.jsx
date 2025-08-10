@@ -4,14 +4,19 @@ import DecryptedText from "../Home/DecryptedText";
 import { GoChevronRight, GoGitCompare, GoRocket, GoStar, GoGear } from "react-icons/go";
 import video1 from "../../video/video1.mp4";
 import img from "../../image/Vector.png";
+import { FaPlus, FaImage, FaFile, FaGoogleDrive } from "react-icons/fa";
 
 const Banner = ({ onToggleSections, showSections }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isUploadDropdownOpen, setIsUploadDropdownOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const videoRef = useRef(null);
   const dropdownRef = useRef(null);
+  const uploadDropdownRef = useRef(null);
   const searchBarRef = useRef(null);
+  const imageInputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   const suggestions = [
     "Explore Earth's oceans",
@@ -39,10 +44,38 @@ const Banner = ({ onToggleSections, showSections }) => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const toggleUploadDropdown = () => {
+    setIsUploadDropdownOpen(!isUploadDropdownOpen);
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log("Image uploaded:", file);
+      // Handle image upload logic here
+    }
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log("File uploaded:", file);
+      // Handle file upload logic here
+    }
+  };
+
+  const handleDriveClick = () => {
+    console.log("Integrate Google Drive upload");
+    // Add Google Drive integration logic here
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
+      }
+      if (uploadDropdownRef.current && !uploadDropdownRef.current.contains(event.target)) {
+        setIsUploadDropdownOpen(false);
       }
     };
 
@@ -122,9 +155,39 @@ const Banner = ({ onToggleSections, showSections }) => {
         <div className="mb-8 w-full max-w-2xl mx-auto flex items-center gap-4 relative">
           <form ref={searchBarRef} onSubmit={handleSearch} className="relative flex-1">
             <div className="relative flex items-center">
-              <div className="flex items-center pl-6 pr-4">
-                <Globe className="w-5 h-5 text-blue-400 mr-3" />
+              <div className="flex items-center pl-6 pr-4 relative" ref={uploadDropdownRef}>
+                <FaPlus 
+                  className="w-8 h-8 text-black bg-white rounded-full mr-3 p-[5px] cursor-pointer"
+                  onClick={toggleUploadDropdown}
+                />
                 <span className="text-white/80 text-sm font-medium">ASK EARTH</span>
+                {isUploadDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-40 bg-white/10 backdrop-blur-md rounded-lg shadow-lg border border-white/20 p-2 z-20">
+                    <ul className="space-y-1">
+                      <li 
+                        className="flex items-center gap-2 p-2 hover:bg-white/20 rounded-md cursor-pointer"
+                        onClick={() => imageInputRef.current.click()}
+                      >
+                        <FaImage className="w-5 h-5 text-white" />
+                        <span className="text-white text-md">Image</span>
+                      </li>
+                      <li 
+                        className="flex items-center gap-2 p-2 hover:bg-white/20 rounded-md cursor-pointer"
+                        onClick={() => fileInputRef.current.click()}
+                      >
+                        <FaFile className="w-5 h-5 text-white" />
+                        <span className="text-white text-md">File</span>
+                      </li>
+                      <li 
+                        className="flex items-center gap-2 p-2 hover:bg-white/20 rounded-md cursor-pointer"
+                        onClick={handleDriveClick}
+                      >
+                        <FaGoogleDrive className="w-5 h-5 text-white" />
+                        <span className="text-white text-md">Drive</span>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
               <div className="flex-1 relative">
                 <input
@@ -139,9 +202,9 @@ const Banner = ({ onToggleSections, showSections }) => {
               </div>
               <button
                 type="submit"
-                className="flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-4 cursor-pointer"
+                className="flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-[12.1px] cursor-pointer"
               >
-                <Search className="w-6 h-6 text-blue-400 hover:text-blue-300 transition-colors duration-300" />
+                <Globe className="w-8 h-8 text-blue-400 hover:text-blue-300 transition-colors duration-300" />
               </button>
             </div>
             {isFocused && (
@@ -218,6 +281,21 @@ const Banner = ({ onToggleSections, showSections }) => {
           </button>
         </div>
       </div>
+
+      {/* Hidden File Inputs */}
+      <input 
+        type="file" 
+        ref={imageInputRef} 
+        accept="image/*" 
+        style={{ display: 'none' }} 
+        onChange={handleImageUpload} 
+      />
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        style={{ display: 'none' }} 
+        onChange={handleFileUpload} 
+      />
 
       {/* Custom Styles */}
       <style jsx>{`

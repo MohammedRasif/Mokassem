@@ -1,5 +1,6 @@
 import React from "react";
 import { CheckCircle, Rocket } from "lucide-react";
+import image from "../../image/Vector (3).png";
 
 // PlanCard component
 function PlanCard({ plan }) {
@@ -103,7 +104,14 @@ function PlanSection() {
   ];
 
   return (
-    <div className="bg-black py-16 px-4 sm:px-6 lg:px-8">
+    <div className="bg-black py-16 px-4 sm:px-6 lg:px-8 relative" >
+      <img
+          src={image}
+          alt="Planet with rings"
+          width={250}
+          height={250}
+          className="absolute top-10 right-10 mt-0 mr-10 hidden lg:block opacity-40"
+        />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-5">
         {/* Header */}
         <div className="text-center mb-12 flex flex-col items-center justify-center">

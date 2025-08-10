@@ -92,7 +92,7 @@ function Work() {
     <img
       src={backgroundimg}
       alt="Dark space background with a planet"
-      className="w-full h-full object-cover opacity-50 "
+      className="w-full h-full  opacity-50 "
     />
   </div>
 

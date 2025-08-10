@@ -428,7 +428,7 @@ const useMobileDetection = () => {
 }
 
 const MagicBento = ({
-  textAutoHide = true,
+  textAutoHide = true, 
   enableStars = true,
   enableSpotlight = true,
   enableBorderGlow = true,
@@ -553,7 +553,7 @@ const MagicBento = ({
             const IconComponent = card.icon // Get the icon component
             const baseClassName = `card flex flex-col relative h-[20vh] w-[50vh] py-8 px-5 rounded-[20px] border border-solid font-light overflow-hidden transition-all duration-300 ml-20 ease-in-out hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)] ${
               enableBorderGlow ? "card--border-glow" : ""
-            } bg-gradient-to-br from-purple-950 to-gray-950` // Added gradient background here
+            } ${index === 0 ? 'bg-gradient-to-br from-[#7CEFFF66] via-[#1B053670] to-[#397EE466]' : 'bg-gradient-to-br from-[#FD9EFF66] via-[#9E1F3E66] to-[#270511]'}` // Different backgrounds for each card
             const cardStyle = {
               // backgroundColor: card.color || "var(--background-dark)", // Removed: Using gradient instead
               borderColor: "var(--border-color)",
